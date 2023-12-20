@@ -8,5 +8,5 @@ class KotlinWebApplication
 
 fun main(args: Array<String>) {
 	runApplication<KotlinWebApplication>(*args)
-		//helloddd
+		//dev
 }
