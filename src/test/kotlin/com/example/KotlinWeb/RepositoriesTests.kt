@@ -19,7 +19,7 @@ class RepositoriesTests @Autowired constructor ( // @Autowired annotation 을 �
 ) {
     @Test
     fun `When findByIdOrNull then return  Article`(){
-        val user = User("login", "firstname", "lastname")
+        val user = UserInfo("login", "firstname", "lastname")
         entityManager.persist(user) // persist 메소드는 저장을 하는것 같으..
         val article = Article("title", "headline", "content", user)
         entityManager.persist(article)
@@ -30,7 +30,7 @@ class RepositoriesTests @Autowired constructor ( // @Autowired annotation 을 �
 
     @Test
     fun `When findByLogin then return User`() {
-        val user = User("login", "firstname", "lastname")
+        val user = UserInfo("login", "firstname", "lastname")
         entityManager.persist(user)
         entityManager.flush()
         val found = userRepository.findByLogin(user.login)

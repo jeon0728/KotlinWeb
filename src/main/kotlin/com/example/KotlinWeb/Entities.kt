@@ -13,7 +13,7 @@ class Article (
     var title:String,
     var headline: String,
     var content: String,
-    @ManyToOne var author: User,
+    @ManyToOne var author: UserInfo,
     // @ManyToOne annotation ??
     // N:1 의 관계 Article은 자신을 소유한 User가 있다.
     // 이 User는 여러개의 Article을 가질수 있따.
@@ -27,7 +27,7 @@ class Article (
 )
 
 @Entity
-class User(
+class UserInfo(
     var login: String,
     var firstName: String,
     var lastName: String,

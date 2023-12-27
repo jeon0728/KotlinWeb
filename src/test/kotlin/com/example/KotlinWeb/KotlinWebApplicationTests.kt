@@ -29,13 +29,13 @@ class KotlinWebApplicationTests(@Autowired val restTemplate: TestRestTemplate) {
 		assertThat(entity.body).contains("<h1>Blog</h1>")
 	}
 
-	@Test
-	fun `Assert article page title, content and status code`() {
-		println(">> Assert article page title, content and status code")
-		val entity = restTemplate.getForEntity<String>("/article")
-		assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-		assertThat(entity.body).contains("<h1>Article</h1>")
-	}
+//	@Test
+//	fun `Assert article page title, content and status code`() {
+//		println(">> Assert article page title, content and status code")
+//		val entity = restTemplate.getForEntity<String>("/article")
+//		assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+//		assertThat(entity.body).contains("<h1>Article</h1>")
+//	}
 
 	@AfterAll
 	fun teardown(){

@@ -10,8 +10,4 @@ class KotlinWebApplication
 
 fun main(args: Array<String>) {
 	runApplication<KotlinWebApplication>(*args)
-	val now: LocalDateTime  = LocalDateTime.now()
-
-	println(now.format())
-
 }
