@@ -1,9 +1,6 @@
 package com.example.KotlinWeb
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
@@ -19,7 +16,7 @@ class Article (
     // 이 User는 여러개의 Article을 가질수 있따.
     var slug: String = title.toSlug(),
     var addedAt: LocalDateTime = LocalDateTime.now(),
-    @Id @GeneratedValue var id: Long? = null
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null
     // @Id annotation ??
     // DB 상의 pk로 보면 된다.
     // @GeneratedValue
@@ -32,5 +29,5 @@ class UserInfo(
     var firstName: String,
     var lastName: String,
     var description: String? = null,
-    @Id @GeneratedValue var id: Long? = null
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long? = null
 )

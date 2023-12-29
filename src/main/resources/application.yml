@@ -14,5 +14,6 @@ spring:
     properties:
       hibernate:
         format_sql: true # ?? ??? ?? ????? ??
+    #defer-datasource-initialization : true
 server:
   port: 8081
