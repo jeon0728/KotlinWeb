@@ -22,10 +22,10 @@ class RepositoriesTests @Autowired constructor ( // @Autowired annotation 을 �
     @Test
     fun `When findByIdOrNull then return  Article`(){
         val user = UserInfo("login", "firstname", "lastname")
-        entityManager.persist(user) // persist 메소드는 저장을 하는것 같으..
+        entityManager.persist(user) // UserInfo 엔티티를 영속성 컨텍스트에 저장하는 메소드 (단, 쿼리는 생기지 않는다.)
         val article = Article("title", "headline", "content", user)
         entityManager.persist(article)
-        entityManager.flush() // flush 매소드는 oracle의 commit과 같은 역할을 하는것 같으..
+        entityManager.flush() // 위에서 persist한 엔티티의 쿼리가 실제로 DB에 반영되는 메소드
         val found = articleRepository.findByIdOrNull(article.id!!) //article.id!! 는 절대 null 일 수가 없다는 뜻 왜냐? pk 이니까!!
         assertThat(found).isEqualTo(article)
     }
