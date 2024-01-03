@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDateTime
 
@@ -59,4 +56,31 @@ class HtmlController (private val articleRepository: ArticleRepository, private 
         val author: UserInfo,
         val addedAt: LocalDateTime
     )
+}
+
+@RestController
+@RequestMapping("/api/articles")
+class ArticleController (private val articleRepository: ArticleRepository) {
+
+    @GetMapping("/")
+    fun findAll() = articleRepository.findAllByOrderByAddedAtDesc()
+
+    @GetMapping("/{slug}")
+    // @PathVariable는 URL에 변수가 들어온걸 처리하는 어노테이션
+    // EX) http://localhost:8080/api/user/1234 에서 "1234" 가 변수
+    fun findOne(@PathVariable slug : String) =
+        articleRepository.findBySlug(slug)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "this article does not exist")
+}
+
+@RestController
+@RequestMapping("/api/users")
+class UserController(private val userInfoRepository: UserRepository){
+    @GetMapping("/")
+    fun findAll() = userInfoRepository.findAll();
+
+    @GetMapping("/{login}")
+    fun findOne(@PathVariable login: String) =
+        userInfoRepository.findByLogin(login)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "this user does not exist")
 }
