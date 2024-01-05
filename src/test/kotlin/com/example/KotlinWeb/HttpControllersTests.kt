@@ -1,5 +1,6 @@
 package com.example.KotlinWeb
 
+import com.example.KotlinWeb.controller.ApiController
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
@@ -14,12 +15,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 
-@WebMvcTest
+@AutoConfigureMockMvc
 @SpringBootTest
+//@AutoConfigureMockMvc
+//@WebMvcTest
 class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 
-    @MockBean // @MockBean annotaion : Mock 용 빈을 등록하겠다는 뜻
-    private lateinit var articleRepository: ArticleRepository
+    //@MockBean // @MockBean annotaion : Mock 용 빈을 등록하겠다는 뜻
+    //private lateinit var articleRepository: ArticleRepository
     // lateinit : 늦은 초기화
     // kotlin은 null 사용을 자제한다.
     // 그렇기 때문에 null로 초기화 하지 않고 lateinit을 사용하여 늦은 초기화하여 사용할 수 있다.
@@ -27,7 +30,7 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
     // test 코드라 그런지 에러가 나진 않는다..
 
     //위와 같은 기능의 코드
-    //private val articleRepository = mockk<ArticleRepository>()
+    private val articleRepository = mockk<ArticleRepository>()
 
     private val userRepository = mockk<UserRepository>()
 
@@ -43,7 +46,8 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
                 listOf(article1, article2)
 
         // mockMvc를 이용 하여 API 호출
-        mockMvc.perform(get("/api/articles/").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/articles/")
+            .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("\$.[0].author.login").value(user.login))
@@ -54,8 +58,8 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `List users`() {
-        val user1 = UserInfo("login1", "firstName1", "lastName1")
-        val user2 = UserInfo("login2", "firstName2", "lastName2")
+        val user1 = UserInfo("login", "firstName1", "lastName1")
+        val user2 = UserInfo("Y", "firstName2", "lastName2")
 
         // mokk의 every 메소드를 이용해 리턴값을 지정한다.
         // userRepository.findAll() 실행 하면 무조건 user1, user2 반환함
