@@ -14,7 +14,9 @@ import java.time.LocalDateTime
 @Controller // @Controller는 view 페이지를 호출하기 위한 컨트롤러
 // HtmlController 는 생성자로 ArticleRepository 타입의 repository를 정의한다.
 // 생성자에 접근 제어자(private)를 설정하면 get/set 불가한 속성이 된다.
-class HtmlController (private val articleRepository: ArticleRepository, private val userInfoRepository: UserRepository) {
+class HtmlController (private val articleRepository: ArticleRepository,
+                      private val userInfoRepository: UserRepository,
+                      private val properties: BlogProperties) {
 
     @GetMapping("/")
     // Model 객체는 request나 session 와 같은 역할
@@ -22,6 +24,7 @@ class HtmlController (private val articleRepository: ArticleRepository, private 
     fun blog(model: Model): String {
         model["title"] = "Blog" //import org.springframework.ui.set 으로 사용가능
         //model.addAttribute("title", "Blog") 위 코드와 같은 성격의 코드
+        model["banner"] = properties.test
         model["articles"] = articleRepository.findAllByOrderByAddedAtDesc().map{
             it.render() //확장 함수 호출
         }

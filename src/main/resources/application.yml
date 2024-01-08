@@ -17,3 +17,9 @@ spring:
     #defer-datasource-initialization : true
 server:
   port: 8081
+
+blog:
+  title: Blog
+  test:
+    title: Properties Testing
+    content: jjh fighting
