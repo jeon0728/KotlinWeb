@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController // @RestController는 json 객체를 반환하기 위한 컨트롤러
-@RequestMapping("/api")
+@RequestMapping("/api") //api 의 prefix 지정
 class ApiController(val userRepository: UserRepository, val articleRepository: ArticleRepository) {
 
-    var rst = result("1", "success")
+    var rst = result("1", "success") //반환 코드값 세팅
+
     @PostMapping("/save")
     fun save(@RequestBody article: Article, model: Model): result {
         userRepository.save(article.author)

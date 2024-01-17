@@ -10,9 +10,9 @@ import org.springframework.cglib.core.Local
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
-@SpringBootApplication
-class KotlinWebApplication
-
-fun main(args: Array<String>) {
-	runApplication<KotlinWebApplication>(*args)
-}
+//@SpringBootApplication
+//class KotlinWebApplication
+//
+//fun main(args: Array<String>) {
+//	runApplication<KotlinWebApplication>(*args)
+//}

@@ -25,6 +25,8 @@ class HtmlController (private val articleRepository: ArticleRepository,
     fun blog(model: Model): String {
         model["title"] = "Blog" //import org.springframework.ui.set 으로 사용가능
         //model.addAttribute("title", "Blog") 위 코드와 같은 성격의 코드
+
+
         model["banner"] = properties.test
         model["articles"] = articleRepository.findAllByOrderByAddedAtDesc().map{ (it)
             it.aaaa() //확장 함수 호출
@@ -50,9 +52,9 @@ class HtmlController (private val articleRepository: ArticleRepository,
 
     @GetMapping("/article/{slug}")
     fun article(@PathVariable slug: String, model: Model): String {
-        val article = articleRepository
+        val article = articleRepository //변수 article에 담길 데이터 타입은 RenderArticle or null 둘 중 하나
             .findBySlug(slug)
-            ?.run{ this.render() } // findBySlug(slug) 의 결과가 null 이 아니면 run 메소드 호출, this는 Article Entity 객체
+            ?.run{ this.render() } // findBySlug(slug) 의 결과가 null 이 아니면 run 메소드 호출 > run 블록안에 있는 render 함수 호출 > this는 Article Entity 객체
             ?:throw ResponseStatusException(HttpStatus.NOT_FOUND, "This article does not exist") // run 메소드의 결과가 null 이면 throw 실행
         model["title"] = article.title
         model["article"] = article
@@ -73,6 +75,9 @@ class HtmlController (private val articleRepository: ArticleRepository,
         this.addedAt
     )
 
+    // 위 코드를 풀어서 쓴 형태
+    // render() 함수가 호출되면 Article 타입의 객체가 RenderArticle라는 data class에 담겨 반환됨
+    // RenderArticle 형태의 data class를 반환함
     fun Article.render(): RenderArticle {
         return RenderArticle(this.slug,
             this.title,
@@ -82,6 +87,7 @@ class HtmlController (private val articleRepository: ArticleRepository,
             this.addedAt)
     }
 
+    //RenderArticle 이라는 data class 정의
     data class RenderArticle(
         val slug: String,
         val title: String,

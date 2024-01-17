@@ -18,13 +18,13 @@ class IntegrationTests (@Autowired val restTemplate: TestRestTemplate) {
         println(">> Setup")
     }
 
-//    @Test
-//    fun `Assert blog page title, content and status code`() {
-//        println(" >> Assert blog page test, content and status code")
-//        val entity = restTemplate.getForEntity<String>("/")
-//        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-//        assertThat(entity.body).contains("<h1>Blog</h1>")
-//    }
+    @Test
+    fun `Assert blog page title, content and status code`() {
+        println(" >> Assert blog page test, content and status code")
+        val entity = restTemplate.getForEntity<String>("/") //api 요청에 대한 응답값을 ResponseEntity로 반환받는다.
+        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(entity.body).contains("<h1>Blog</h1>")
+    }
 
     @Test
     fun `Assert article page title, content and status code`() {
