@@ -1,0 +1,29 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+    password:
+  jpa:
+    database: H2
+    show-sql: true # Jpa ?? ? SQL? ?? ??
+    properties:
+      hibernate:
+        format_sql: true # ?? ??? ?? ????? ??
+    #defer-datasource-initialization : true
+  security:
+    user:
+      name: user
+      password: 1
+server:
+  port: 8081
+
+blog:
+  title: Blog
+  test:
+    title: Properties Testing
+    content: jjh fighting
